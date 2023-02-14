@@ -272,9 +272,14 @@ def year(i:list,p:list):
     :rtype: list, list
     """
     T = int(input('Mitu aastat? '))
-    for j in range(len(p)):
-        p[j] = p[j] * 1.05 ** T
-    return i,p
+    N = int(input('Mis on selle inimese number, kelle palka soovite teada? '))
+    for d in range(N-1,len(i)):
+        de=i[d]
+        for j in range(N-1,len(p),1):
+            p[j] = p[j] * 1.05 ** T
+        print('-----------------------')
+        print(f'{de} palk {T} aasta pärast on {round(p[j],2)}')
+        return i,p
 
 def rename(i:list):
     """ümbernimetamine
