@@ -64,7 +64,6 @@ def Soorteerimine(i:list,p:list):
     :param list p: Palgade järend
     :rtype: int, str
     """
-
     v=int(input("palk 1-kahaneb, 2-kasvab? "))
     if v==1:
         n=len(p)
@@ -110,6 +109,11 @@ def Vordsed_palgad(i:list,p:list):
     return i,p
 
 def imja(i:list,p:list):
+    """leiab nime ja oma palga
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     nimi=input("Kelle palk tahad leia? \n")
     while nimi not in i:
         nimi=input("Palun kirjuta õige nimi \n")
@@ -137,6 +141,11 @@ def disp(palgad, inimesed, amount, compare):
     return result
 
 def top(i:list,p:list): 
+    """top 3 vähem ja rohkem
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     kopia=p.copy()
     for j in range(3):
         ind=kopia.index(min(kopia))
@@ -151,6 +160,11 @@ def top(i:list,p:list):
         kopia.insert(ind,min(p)+1)
 
 def kesk(i:list,p:list): 
+    """leiab keskmine palk
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     kesk=sum(p)/len(p)
     print(f"Keskmine palk on {kesk}")
     for j in range(len(i)):
@@ -158,6 +172,11 @@ def kesk(i:list,p:list):
             print(f"{i[j]} saab suurem kui keskmine palk, ta saab {p[j]}")
 
 def tulu(i:list,p:list): 
+    """leiab maksuvaba
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     for j in range(0,len(p)):
         if i[j]<500:
             palk=p[j]
@@ -170,13 +189,18 @@ def tulu(i:list,p:list):
         print(f"{i[j]} on maksuvaba palk {palk}")
 
 def sort(i:list,p:list):
+    """Sorteeri palga ja inimeste järgi
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     vali=input("Sorteeri nime (1) või palga järgi (2) ")
     while vali not in ["1","2"]:
         vali=input("Kirjuta ainult 1 või 2 ")
     if vali=="1":
-        vali_2=input("A–Z või Z–A ").upper()
-        while vali_2 not in ["A-Z","Z-A"]:
-            vali_2=input("A–Z või Z–A ").upper()
+        vali_2=input("A–Ü või Ü–A ").upper()
+        while vali_2 not in ["A-Ü","Ü-A"]:
+            vali_2=input("A–Ü või Ü–A ").upper()
         for l in range(0,len(i)):
             for o in range(0,len(i)):
                 if i[l]==i[o] and l!=o:
@@ -190,7 +214,7 @@ def sort(i:list,p:list):
             ind=kopia.index(i[j])
             p1.insert(j,p[ind])
         p=p1
-        if vali_2=="Z-A":
+        if vali_2=="Ü-A":
             i.reverse()
             p.reverse()
     else:
@@ -203,16 +227,20 @@ def sort(i:list,p:list):
                     abi=i[l]
                     i[l]=i[o]
                     i[o]=abi
-        vali_2=input("Kasvav või kahanev järjekord ").title()
+        vali_2=input("Kasvav või kahanev järjekord? ").title()
         while vali_2 not in ["Kasvav","Kahanev"]:
-            vali_2=input("Kasvav või kahanev! ").title()
+            vali_2=input("Ainult Kasvav või kahanev! ").title()
         if vali_2=="Kahanev":
             i.reverse()
             p.reverse()
     return i,p 
 
 def emalda(i:list,p:list):
-
+    """enmaldab kes palk on vähem kui keskmine
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     i1=[] 
     p1=[]
     kesk=sum(p)/len(p)
@@ -225,16 +253,38 @@ def emalda(i:list,p:list):
     p=p1
     return i,p
 
-def tint(i:list,p:list):
-
+def kiri(i:list,p:list):
+    """teeb nimekiri ilusam
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     for j in range(0,len(i)):
         i[j]=i[j].title()
         p[j]=round(p[j],1) 
         p[j]=int(p[j])
-    return i,p
+        return i,p
 
 def year(i:list,p:list):
+    """töötasu arvestus T-aastas
+    :param list i: Inimeste järjend
+    :param list p: Palgade järjend
+    :rtype: list, list
+    """
     T = int(input('Mitu aastat? '))
     for j in range(len(p)):
         p[j] = p[j] * 1.05 ** T
     return i,p
+
+def rename(i:list):
+    """ümbernimetamine
+    :param list i: Inimeste järjend
+    :rtype: list
+    """
+    for j in range(2,len(i),3):
+        ren=input("Kirjuta uus nimi: ")
+        while ren.isdigit() or len(ren)<1:
+            ren=input("Kirjuta õige nimi: ")
+        i.pop(j)
+        i.insert(j,ren)
+    return i
